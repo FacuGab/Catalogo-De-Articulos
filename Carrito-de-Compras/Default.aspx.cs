@@ -18,7 +18,7 @@ namespace Carrito_de_Compras
         private int index;
         public int count { get; set; }
 
-        //LOAD:
+        //Load:
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

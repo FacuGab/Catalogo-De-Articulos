@@ -20,6 +20,7 @@ namespace Carrito_de_Compras
         private decimal valorFinal;
         private decimal valorTotal;
 
+        //Load:
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -49,6 +50,7 @@ namespace Carrito_de_Compras
             lblTotal.Text = valorTotal.ToString() + " $";
         }
         //Metodos:
+        //Buscador de codigo de articulos
         public string ArtRepetidos(string cod)
         {
             try
@@ -64,6 +66,7 @@ namespace Carrito_de_Compras
                 return "Nada";
             }
         }
+        //Total acumulado por unidades
         public decimal TotalXunidades(string cod, decimal precio)
         {
             try
@@ -78,6 +81,7 @@ namespace Carrito_de_Compras
                 return 0;
             }
         }
+        //Calculo del monto $ acumulado en el carrito
         private void montoParcial(decimal monto)
         {
             if (Session["montoParcial"] != null)
@@ -87,6 +91,7 @@ namespace Carrito_de_Compras
                 Session.Add("montoParcial", valorFinal);
             }
         }
+        //Resta de monto $ al quitar articulo del carrito
         private void restarMonto(decimal resta)
         {
             valorInicial = (decimal)Session["montoParcial"];
@@ -95,7 +100,7 @@ namespace Carrito_de_Compras
                 valorFinal = 0.0M;
             Session.Add("montoParcial", valorFinal);
         }
-
+        //Boton Eliminar
         protected void btn_Eliminar_Click(object sender, EventArgs e)
         {
             int cant;
@@ -140,7 +145,7 @@ namespace Carrito_de_Compras
                 Response.Redirect("Lista.aspx", false);
             }
         }
-
+        //Boton Volver a Default.aspx
         protected void btnVolverLista_Click(object sender, EventArgs e)
         {
             Response.Redirect("Default.aspx", false);

@@ -11,7 +11,7 @@ namespace Dominio
         public string _descripcion { get; set; }
         public string _urlImagen { get; set; }
         public decimal _precio { get; set; }
-
+        public bool _activo { get; set; }
         public int _Id { get; set; }
 
         // CONSTRUCTOR:

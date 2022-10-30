@@ -51,6 +51,13 @@ namespace Negocio
             _command.CommandText = query;
         }
 
+        // SetSP
+        public void setSP(string sp)
+        {
+            _command.CommandType = System.Data.CommandType.StoredProcedure;
+            _command.CommandText = sp;
+        }
+
         // Ejecutar Lectura de Datos:
         public void ejecutarLectura()
         {

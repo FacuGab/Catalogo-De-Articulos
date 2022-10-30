@@ -15,46 +15,7 @@
 
         <!-- Filtros Busqueda -->
         <div class="p-5" style="background-color: #0b0034; border-radius: 2em;">
-            <%--<table class="table table-borderless">
-                <thead>
-                    <h3>Filtros</h3>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="2">
-                            <h4>Marca:</h4>
-                        </td>
-                        <td colspan="2">
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <h4>Tipo:</h4>
-                        </td>
-                        <td colspan="2">
-                            <asp:DropDownList ID="dwlTipo" CssClass="form-control"  runat="server"></asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <h4>Precio:</h4>
-                        </td>
-                        <td colspan="2">
-
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <asp:TextBox CssClass="form-control" ID="txbPrecio" runat="server" />
-                                </div>
-                                <div class="col-md-4">
-                                    <asp:DropDownList ID="dwlSelector" CssClass="form-control" runat="server" />
-                                </div>
-                            </div>
-                            
-                        </td>
-                    </tr>
-                </tbody>
-            </table>--%>
+           
                 <div class="row">
                     <div class="col-1 ms-5">
                         <h4>Marca:</h4>

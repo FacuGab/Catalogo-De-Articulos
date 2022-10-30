@@ -12,9 +12,8 @@
         <h3>Cantidad de articulos: <%:Session["cantidad"] %></h3>
         <h3>Monto Total:<asp:Label ID="lblTotal" Text=" $" runat="server" /></h3>
         <div class="d-grid gap-2 col-6 mx-auto mb-5">
-                <asp:LinkButton ID="btnVolverLista" Text="Volver a Lista" CssClass="btn btn-primary" OnClick="btnVolverLista_Click" runat="server" />
+            <asp:LinkButton ID="btnVolverLista" Text="Volver a Lista" CssClass="btn btn-primary" OnClick="btnVolverLista_Click" runat="server" />
         </div>
-
         <table class="table table-striped">
             <tbody>
                 <asp:Repeater ID="rep_repetidor" runat="server">
@@ -37,7 +36,7 @@
                                     </thead>
                                     <tbody class="table-group-divider">
                                         <tr>
-                                            <td><%#DataBinder.Eval(Container.DataItem, "_codArticulo") %></td>
+                                            <td><span class="badge bg-secondary"><%#DataBinder.Eval(Container.DataItem, "_codArticulo") %></span></td>
                                         </tr>
                                     </tbody>
                                     <thead>
@@ -47,7 +46,7 @@
                                     </thead>
                                     <tbody class="table-group-divider">
                                         <tr>
-                                            <td scope="row"><%#DataBinder.Eval(Container.DataItem, "_nombre") %></td>
+                                            <td scope="row"><span class="badge bg-secondary"><%#DataBinder.Eval(Container.DataItem, "_nombre") %></span></td>
                                         </tr>
                                     </tbody>
                                     <thead>
@@ -57,7 +56,7 @@
                                     </thead>
                                     <tbody class="table-group-divider">
                                         <tr>
-                                            <td><%#DataBinder.Eval(Container.DataItem, "_precio") %></td>
+                                            <td><span class="badge bg-secondary"><%#DataBinder.Eval(Container.DataItem, "_precio") %></span></td>
                                         </tr>
                                     </tbody>
                                     <thead>
@@ -67,7 +66,7 @@
                                     </thead>
                                     <tbody class="table-group-divider">
                                         <tr>
-                                            <td><%#ArtRepetidos( ((Dominio.Articulo)Container.DataItem)._codArticulo ) %></td>
+                                            <td><span class="badge bg-secondary"><%#ArtRepetidos( ((Dominio.Articulo)Container.DataItem)._codArticulo ) %></span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -80,7 +79,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <h4>Total de este Articulo<span class="badge bg-secondary"><%#TotalXunidades( ((Dominio.Articulo)Container.DataItem)._codArticulo, ((Dominio.Articulo)Container.DataItem)._precio ) %></span> $</h4>
+                                                <h4>Total de este Articulo <span class="badge bg-secondary"><%#TotalXunidades( ((Dominio.Articulo)Container.DataItem)._codArticulo, ((Dominio.Articulo)Container.DataItem)._precio ) %></span> $</h4>
                                             </td>
                                         </tr>
                                         <tr>
@@ -99,14 +98,3 @@
     </div>
     <!-- Fin Content -->
 </asp:Content>
-
-<%--<asp:GridView ID="dgw_tabla" CssClass="table table-bordered table-dark" AutoGenerateColumns="false" runat="server">
-            <Columns>
-                <asp:BoundField HeaderText="Codigo" DataField="_codArticulo" />
-                <asp:BoundField HeaderText="Nombre" DataField="_nombre" />
-                <asp:BoundField HeaderText="Descripcion" DataField="_descripcion" />
-                <asp:BoundField HeaderText="Url de Img" DataField="_urlImagen" />
-                <%--<asp:ImageField DataImageUrlField="<%:  %>" />--%>
-<%--<asp:BoundField HeaderText="Precio" DataField="_precio" />--%>
-<%--<asp:BoundField HeaderText="Id" DataField="Id" HeaderStyle-CssClass="ocultar" ItemStyle-CssClass="ocultar" />--%>
-<%--una forma de ocultar mediante css--%>

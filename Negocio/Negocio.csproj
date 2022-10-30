@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dbScript\CATALOGO_DB_v2.sql" />
+    <Content Include="image-missing.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
