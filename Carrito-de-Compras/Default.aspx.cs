@@ -17,54 +17,65 @@ namespace Carrito_de_Compras
         private int cantidad = 0;
         private int index;
         public int count { get; set; }
+        public bool flagFiltro { get; set; }
 
         //Load:
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Detalle aux = new Detalle() { _Id = -1, _Descripcion = "" };
-                List<Detalle> ls = new List<Detalle>();
-                NegocioArticulo negocio = new NegocioArticulo();
-                NegocioDetalle detalles = new NegocioDetalle();
-                detalles.listarDosCategorias();
-
-                ls.Add(aux);
-                ls.AddRange(detalles.listaCategorias);
-                dwlTipo.DataSource = ls;
-                dwlTipo.DataBind();
-
-                ls.Clear();
-
-                ls.Add(aux);
-                ls.AddRange(detalles.listaMarcas);
-                dwlMarca.DataSource = ls;
-                dwlMarca.DataBind();
-
-                dwlSelector.Items.Insert(0, "Mayor a");
-                dwlSelector.Items.Insert(1, "Menor a");
-                dwlSelector.Items.Insert(2, "Igual a");
-
-                rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
-                rep_ListaDefautl.DataBind();
-
-                if (Session.Count == 0)
+                if (!IsPostBack)
                 {
-                    Session.Add("ListaArticulos", new List<Articulo>(negocio.listarArticulos(0)));
-                    Session.Add("cantidadFiltrados", negocio.CantArt);
-                    Session.Add("listaSeleccionados", new List<Articulo>());
-                    Session.Add("cantidad", 0);
-                    Session.Add("uniXcodigo", new Dictionary<string, int>());
-                    Session.Add("montoTotal", 0.00M);
-                    Session.Add("montoParcial", 0.00M);
-                    count = negocio.CantArt;
-                }
-                else
-                {
-                    Session.Add("cantidadFiltrados", negocio.CantArt);
-                    count = negocio.CantArt;
+                    flagFiltro = false;
+                    Detalle aux = new Detalle() { _Id = -1, _Descripcion = "" };
+                    List<Detalle> ls = new List<Detalle>();
+                    NegocioArticulo negocio = new NegocioArticulo();
+                    NegocioDetalle detalles = new NegocioDetalle();
+                    detalles.listarDosCategorias();
+
+                    ls.Add(aux);
+                    ls.AddRange(detalles.listaCategorias);
+                    dwlTipo.DataSource = ls;
+                    dwlTipo.DataBind();
+
+                    ls.Clear();
+
+                    ls.Add(aux);
+                    ls.AddRange(detalles.listaMarcas);
+                    dwlMarca.DataSource = ls;
+                    dwlMarca.DataBind();
+
+                    dwlSelector.Items.Insert(0, "Mayor a");
+                    dwlSelector.Items.Insert(1, "Menor a");
+                    dwlSelector.Items.Insert(2, "Igual a");
+
+                    rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
+                    rep_ListaDefautl.DataBind();
+
+                    if (Session.Count == 0)
+                    {
+                        Session.Add("ListaArticulos", new List<Articulo>(negocio.listarArticulos(0)));
+                        Session.Add("cantidadFiltrados", negocio.CantArt);
+                        Session.Add("listaSeleccionados", new List<Articulo>());
+                        Session.Add("cantidad", 0);
+                        Session.Add("uniXcodigo", new Dictionary<string, int>());
+                        Session.Add("montoTotal", 0.00M);
+                        Session.Add("montoParcial", 0.00M);
+                        count = negocio.CantArt;
+                    }
+                    else
+                    {
+                        Session.Add("cantidadFiltrados", negocio.CantArt);
+                        count = negocio.CantArt;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+            }
+
         }
         //METODOS:
         //Boton Agregar
@@ -123,6 +134,7 @@ namespace Carrito_de_Compras
             {
                 if (IsPostBack)
                 {
+                    flagFiltro = true;
                     NegocioArticulo negocioFiltro = new NegocioArticulo();
                     List<Articulo> listaFiltrada = new List<Articulo>();
                     List<Articulo> listaArticulos = (List<Articulo>)Session["ListaArticulos"];
@@ -132,14 +144,14 @@ namespace Carrito_de_Compras
                     string selector = dwlSelector.SelectedValue;
                     decimal precio = 0.00M;
 
-                    if(!string.IsNullOrEmpty(strPrecio))
+                    if (!string.IsNullOrEmpty(strPrecio))
                     {
                         if (!decimal.TryParse(strPrecio, out precio))
                         {
                             PageUtils.Mensaje(this, "El precio ingresado no es valido");
                             return;
                         }
-                        else if(precio < 0)
+                        else if (precio < 0)
                         {
                             PageUtils.Mensaje(this, "El precio ingresado no es valido");
                             return;
