@@ -105,7 +105,7 @@ namespace Carrito_de_Compras
                 Response.Redirect("Error.aspx", false);
             }
         }
-        // Botones Elminar:
+        // Botones Elminar y Logicos:
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null)
@@ -129,7 +129,6 @@ namespace Carrito_de_Compras
                 Session.Add("error", ex);
             }
         }
-
         protected void btnEliminarLogica_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null)
@@ -143,7 +142,6 @@ namespace Carrito_de_Compras
                 PageUtils.Mensaje(this, "No se puede eliminar un articulo sin seleccionar primero");
             }
         }
-
         protected void btnAltaLogica_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] != null)

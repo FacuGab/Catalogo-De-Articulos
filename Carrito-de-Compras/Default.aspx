@@ -8,7 +8,11 @@
     <asp:ScriptManager runat="server" />
     <div class="container text-center mt-5">
         <div style="margin-bottom: 10px">
-            <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%:Session["cantidad"] %></span></h4>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%: (int)Session["cantidad"] %></span></h4>
+                </ContentTemplate>
+            </asp:UpdatePanel>
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
                 <asp:LinkButton ID="lbtLinkCarrito" Text="Ir a Carrito" CssClass="btn btn-primary" OnClick="lbtLinkCarrito_Click" runat="server" />
             </div>
