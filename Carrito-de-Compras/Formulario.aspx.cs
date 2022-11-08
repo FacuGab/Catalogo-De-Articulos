@@ -22,48 +22,58 @@ namespace Carrito_de_Compras
             ConfirmarElminar = false;
             EventoBotonClick = false;
             tbxId.Enabled = false;
-            if(!IsPostBack)
+
+            // cambio ->
+            if(PageUtils.IsUserAdmin(Page))
             {
-                try
+                if (!IsPostBack)
                 {
-                    NegocioDetalle detalle = new NegocioDetalle();
-                    detalle.listarDosCategorias();
-                    ddlCategoria.DataSource = detalle.listaCategorias;
-                    ddlCategoria.DataValueField = "_Id";
-                    ddlCategoria.DataTextField = "_Descripcion";
-                    ddlCategoria.DataBind();
-
-                    ddlMarca.DataSource = detalle.listaMarcas;
-                    ddlMarca.DataValueField = "_Id";
-                    ddlMarca.DataTextField = "_Descripcion";
-                    ddlMarca.DataBind();
-
-                    if(Request.QueryString["id"] != null)
+                    try
                     {
-                        btnAgregar.Text = "Modificar";
-                        string id = Request.QueryString["id"].ToString();
-                        NegocioArticulo negocio = new NegocioArticulo();
-                        Articulo art = negocio.listarArticulos(0, id)[0];
-                        
-                        tbxId.Text = id;
-                        tbxId.Enabled = false;
+                        NegocioDetalle detalle = new NegocioDetalle();
+                        detalle.listarDosCategorias();
+                        ddlCategoria.DataSource = detalle.listaCategorias;
+                        ddlCategoria.DataValueField = "_Id";
+                        ddlCategoria.DataTextField = "_Descripcion";
+                        ddlCategoria.DataBind();
 
-                        tbxCodigo.Text = art._codArticulo;
-                        tbxNombre.Text = art._nombre;
-                        txaDescripcion.Text = art._descripcion;
-                        ddlCategoria.SelectedValue = art._categoria._Id.ToString();
-                        ddlMarca.SelectedValue = art._marca._Id.ToString();
-                        tbxPrecio.Text = art._precio.ToString();
-                        txbUrlImg.Text = art._urlImagen;
-                        imgFormulario.ImageUrl = txbUrlImg.Text;
+                        ddlMarca.DataSource = detalle.listaMarcas;
+                        ddlMarca.DataValueField = "_Id";
+                        ddlMarca.DataTextField = "_Descripcion";
+                        ddlMarca.DataBind();
+
+                        if (Request.QueryString["id"] != null)
+                        {
+                            btnAgregar.Text = "Modificar";
+                            string id = Request.QueryString["id"].ToString();
+                            NegocioArticulo negocio = new NegocioArticulo();
+                            Articulo art = negocio.listarArticulos(0, id)[0];
+
+                            tbxId.Text = id;
+                            tbxId.Enabled = false;
+
+                            tbxCodigo.Text = art._codArticulo;
+                            tbxNombre.Text = art._nombre;
+                            txaDescripcion.Text = art._descripcion;
+                            ddlCategoria.SelectedValue = art._categoria._Id.ToString();
+                            ddlMarca.SelectedValue = art._marca._Id.ToString();
+                            tbxPrecio.Text = art._precio.ToString();
+                            txbUrlImg.Text = art._urlImagen;
+                            imgFormulario.ImageUrl = txbUrlImg.Text;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Session.Add("error", ex);
+                        throw;
                     }
                 }
-                catch (Exception ex)
-                {
-                    Session.Add("error", ex);
-                    throw;
-                }
             }
+            else
+            {
+                Response.Redirect("Error.aspx");
+            }
+            // <- cambio
         }
 
         // METODOS:

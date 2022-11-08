@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,13 @@ namespace Carrito_de_Compras
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Session["usuario"] != null)
+            {
+                string user = " "+((Usuario)Session["usuario"]).User;
+                string tipo = " "+((Usuario)Session["usuario"]).Tipo.ToString();
+                lblUsuarioNav.Text += user;
+                lblUsuarioTipoNav.Text += tipo;
+            }
         }
     }
 }

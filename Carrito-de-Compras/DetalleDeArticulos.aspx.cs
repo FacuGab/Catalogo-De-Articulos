@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
@@ -16,45 +17,65 @@ namespace Carrito_de_Compras
         private List<Articulo> listaFiltroRapido;
         private List<Articulo> listaLogica;
         private char[] nums = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        private bool flag = false;
         public bool chekedFiltro { get; set; } = false;
 
         //LOAD
         protected void Page_Load(object sender, EventArgs e)
         {
             chekedFiltro = chxFiltroAvanzado.Checked;
-            if(!IsPostBack)
+
+            // cambio ->
+            if(PageUtils.IsUserAdmin(Page))
             {
-                NegocioArticulo negocio = new NegocioArticulo();
-                listaLogica = negocio.listarArticulos(0);
+                if (!IsPostBack)
+                {
+                    NegocioArticulo negocio = new NegocioArticulo();
+                    listaLogica = negocio.listarArticulos(0);
 
-                NegocioDetalle detalle = new NegocioDetalle();
-                detalle.listarDosCategorias();
-                Detalle aux = new Detalle() { _Id = -1, _Descripcion = "" };
-                List<Detalle> ls = new List<Detalle>();
-                
-                ls.Add(aux);
-                ls.AddRange(detalle.listaCategorias);
-                ddlTpoFiltro.DataSource = ls;
-                ddlTpoFiltro.DataBind();
+                    NegocioDetalle detalle = new NegocioDetalle();
+                    detalle.listarDosCategorias();
+                    Detalle aux = new Detalle() { _Id = -1, _Descripcion = "" };
+                    List<Detalle> ls = new List<Detalle>();
 
-                ls.Clear();
+                    ls.Add(aux);
+                    ls.AddRange(detalle.listaCategorias);
+                    ddlTpoFiltro.DataSource = ls;
+                    ddlTpoFiltro.DataBind();
 
-                ls.Add(aux);
-                ls.AddRange(detalle.listaMarcas);
-                ddlMarcaFiltro.DataSource = ls;
-                ddlMarcaFiltro.DataBind();
+                    ls.Clear();
 
-                ddlCriterioFiltro.Enabled = false;
+                    ls.Add(aux);
+                    ls.AddRange(detalle.listaMarcas);
+                    ddlMarcaFiltro.DataSource = ls;
+                    ddlMarcaFiltro.DataBind();
+
+                    ddlCriterioFiltro.Enabled = false;
+                }
+                // ultimo cambio temp, hay que cambiar los filtros rapidos de Activo e Inactivo en logicos para que funcionen mejor -->
+                if (listaLogica == null)
+                {
+                    listaLogica = (List<Articulo>)Session["listaArticulosPrincipal"];
+                }
+                if (Session["indexActual"] == null)
+                    Session.Add("indexActual", 0);
+
+                if (Request.QueryString["activo"] != null && listaLogica != null)
+                {
+                    dgwListaDetallada.PageIndex = (int)Session["indexActual"];
+                    listaLogica.RemoveAll(itm => itm._activo == false);
+                }
+                if (Session["listaArticulosPrincipal"] == null)
+                    Session.Add("listaArticulosPrincipal", listaLogica);
+
+                dgwListaDetallada.DataSource = Session["listaArticulosPrincipal"];
+                dgwListaDetallada.DataBind();
             }
-
-            if (Session["listaArticulosPrincipal"] == null)
-                Session.Add("listaArticulosPrincipal", listaLogica);
-
-            if (Request.QueryString["activo"] != null)
-                listaLogica.RemoveAll(itm => itm._activo == false);
-
-            dgwListaDetallada.DataSource = Session["listaArticulosPrincipal"];
-            dgwListaDetallada.DataBind();
+            else
+            {
+                Response.Redirect("Error.aspx");
+            }
+            // <-- cambio 
         }
         //METODOS:
         // Metodo Cambio de indice en Grid
@@ -72,17 +93,25 @@ namespace Carrito_de_Compras
         // Metodo Cambio de indice en Grid
         protected void dgwListaDetallada_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            dgwListaDetallada.PageIndex = e.NewPageIndex;
-            dgwListaDetallada.DataBind();
+            if(!flag)
+            {
+                dgwListaDetallada.PageIndex = e.NewPageIndex;
+                dgwListaDetallada.DataBind();
+            }
         }
         // Boton Mostrar Activos
         protected void btnMostrarLogicos_Click(object sender, EventArgs e)
         {
-            Response.Redirect("DetalleDeArticulos.aspx?activo=1", false);   
+            if(!flag)
+            {
+                Session.Add("indexActual", dgwListaDetallada.PageIndex);
+                Response.Redirect("DetalleDeArticulos.aspx?activo=1", false);
+            }
         }
         // Boton Mostrar Inactivos
         protected void btnMostrarSilogicos_Click(object sender, EventArgs e)
         {
+            Session.Add("indexActual", dgwListaDetallada.PageIndex);
             Response.Redirect("DetalleDeArticulos.aspx", false);
         }
         // Evento Cambio de Texto en Filtro Rapido
@@ -96,6 +125,7 @@ namespace Carrito_de_Compras
 
             dgwListaDetallada.DataSource = listaFiltroRapido;
             dgwListaDetallada.DataBind();
+            flag = true;
         }
         // Evento ChekedBox Filtro Avanzado
         protected void chxFiltroAvanzado_CheckedChanged(object sender, EventArgs e)

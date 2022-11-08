@@ -66,6 +66,7 @@
                 <%} %>
             </ContentTemplate>
         </asp:UpdatePanel>
+
         <!-- Filtro Avanzado -->
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
@@ -93,6 +94,7 @@
                 </asp:GridView>
             </ContentTemplate>
         </asp:UpdatePanel>
+
         <!-- Botones -->
         <div class="row">
             <div class="col-4">
@@ -119,61 +121,3 @@
     </div>
     <!-- FIN -->
 </asp:Content>
-
-<%--una forma de ocultar mediante css--%>
-<%--<asp:BoundField HeaderText="Id" DataField="_Id" HeaderStyle-CssClass="ocultar" ItemStyle-CssClass="ocultar" />--%>
-<%--CssClass="table table-dark table-striped-columns"
-        AutoGenerateColumns="false"
-        runat="server"/>--%>
-
-<%--    
-    <asp:FormView ID="Suppliers" runat="server" DataKeyNames="SupplierID"
-        DataSourceID="SuppliersDataSource" EnableViewState="False" AllowPaging="True">
-        <ItemTemplate>
-            <h3>
-                <asp:Label ID="CompanyName" runat="server"
-                    Text='<%# Bind("CompanyName") %>' />
-            </h3>
-            <b>Phone:</b>
-            <asp:Label ID="PhoneLabel" runat="server" Text='<%# Bind("Phone") %>' />
-        </ItemTemplate>
-    </asp:FormView>
-
-    <asp:ObjectDataSource ID="SuppliersDataSource" runat="server"
-        OldValuesParameterFormatString="original_{0}"
-        SelectMethod="GetSuppliers" TypeName="SuppliersBLL">
-    </asp:ObjectDataSource> 
-    <asp:FormView ID="Suppliers" runat="server" DataKeyNames="SupplierID"
-    DataSourceID="SuppliersDataSource" EnableViewState="False"
-    AllowPaging="True">
-    <ItemTemplate>
-        <h3><asp:Label ID="CompanyName" runat="server"
-            Text='<%# Bind("CompanyName") %>'></asp:Label></h3>
-        <b>Phone:</b>
-        <asp:Label ID="PhoneLabel" runat="server" Text='<%# Bind("Phone") %>' />
-        <br />
-        <asp:Button ID="DiscontinueAllProductsForSupplier" runat="server"
-            CommandName="DiscontinueProducts" Text="Discontinue All Products"
-            OnClientClick="return confirm('This will mark _all_ of this supplier\'s
-                products as discontinued. Are you certain you want to do this?');" />
-    </ItemTemplate>
-</asp:FormView>
-
-    <asp:GridView ID="SuppliersProducts" runat="server" AutoGenerateColumns="False"
-    DataKeyNames="ProductID" DataSourceID="SuppliesrsProductsDataSource"
-    EnableViewState="False">
-    <Columns>
-        <asp:ButtonField ButtonType="Button" CommandName="IncreasePrice"
-            Text="Price +10%" />
-        <asp:ButtonField ButtonType="Button" CommandName="DecreasePrice"
-            Text="Price -10%" />
-        <asp:BoundField DataField="ProductName" HeaderText="Product"
-            SortExpression="ProductName" />
-        <asp:BoundField DataField="UnitPrice" HeaderText="Price"
-            SortExpression="UnitPrice" DataFormatString="{0:C}"
-            HtmlEncode="False" />
-        <asp:CheckBoxField DataField="Discontinued" HeaderText="Discontinued"
-            SortExpression="Discontinued" />
-    </Columns>
-</asp:GridView>
---%>

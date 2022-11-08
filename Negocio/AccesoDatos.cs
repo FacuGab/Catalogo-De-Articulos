@@ -20,7 +20,6 @@ namespace Negocio
         //CONSTRUCTOR:
         public AccesoDatos(string cadenaConexion = "server=.; database = CATALOGO_DB; integrated security = true")
         {
-            // Luchoo! para conectarte vs cambia "serverDef1" por "serverDef2"...
             // server por defecto ConnStr1 = . 
             // sgundo server por defecto ConnStr2 = .\\SQLEXPRESS
             //string strCon = ConfigurationManager.ConnectionStrings["ConnStr1"].ToString();

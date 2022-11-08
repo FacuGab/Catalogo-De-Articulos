@@ -52,7 +52,7 @@ namespace Carrito_de_Compras
                     rep_ListaDefautl.DataSource = new List<Articulo>(negocio.listarArticulos(0));
                     rep_ListaDefautl.DataBind();
 
-                    if (Session.Count == 0)
+                    if (Session.Count == 0 || Session["usuario"] != null)
                     {
                         Session.Add("ListaArticulos", new List<Articulo>(negocio.listarArticulos(0)));
                         Session.Add("cantidadFiltrados", negocio.CantArt);

@@ -75,6 +75,7 @@
     <Content Include="iconoCarrito.png" />
     <Content Include="image-missing.png" />
     <Content Include="Lista.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Models\css\bootstrap-grid.css" />
     <Content Include="Models\css\bootstrap-grid.min.css" />
     <Content Include="Models\css\bootstrap-grid.rtl.css" />
@@ -139,6 +140,13 @@
     </Compile>
     <Compile Include="Lista.aspx.designer.cs">
       <DependentUpon>Lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="PageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

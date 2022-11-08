@@ -11,10 +11,20 @@ namespace Carrito_de_Compras
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                if (Session["error"] != null)
-                    txaError.Text = ((Exception)Session["error"]).Message;
+                try
+                {
+                    if (Session["error"] != null)
+                        txaError.Text = ((Exception)Session["error"]).Message;
+                }
+                catch
+                {
+                    if (Session["usuario"] == null)
+                        txaError.Text = "Usuario No ingresado";
+                    else
+                        txaError.Text = Session["error"].ToString();
+                }
             }
         }
     }

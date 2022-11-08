@@ -115,6 +115,7 @@ UPDATE ARTICULOS SET Codigo = 'R02', Nombre = 'Asus Pro G10', Descripcion = 'Pla
 
 -- ejemplos auxiliares:
 
+
 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE 'Televisores' AND m.Descripcion LIKE 'Sony' AND a.Precio < 100000
 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE 'Televisores' AND m.Descripcion LIKE 'Sony' AND a.Precio < 100000
 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id WHERE c.Descripcion LIKE 'Celulares' AND m.Descripcion LIKE 'Samsung' AND a.Precio > 100
@@ -127,6 +128,10 @@ CREATE PROCEDURE SP_Listar AS
 	 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl 
 	 FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id
 EXEC SP_Listar
+
+SELECT * FROM USUARIOS
+SELECT Id, Usuario, Pass, TipoUsuario FROM dbo.USUARIOS WHERE Usuario = 'test' AND Pass = 'test'
+SELECT Id, TipoUsuario FROM dbo.USUARIOS WHERE Usuario = 'test' AND Pass = 'test'
 
 	--Tabla ARTICULOS:
 	--[Id] [int] IDENTITY(1,1) NOT NULL,
