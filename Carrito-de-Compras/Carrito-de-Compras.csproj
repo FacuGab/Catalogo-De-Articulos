@@ -76,6 +76,7 @@
     <Content Include="image-missing.png" />
     <Content Include="Lista.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Mensaje.aspx" />
     <Content Include="Models\css\bootstrap-grid.css" />
     <Content Include="Models\css\bootstrap-grid.min.css" />
     <Content Include="Models\css\bootstrap-grid.rtl.css" />
@@ -148,6 +149,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Mensaje.aspx.cs">
+      <DependentUpon>Mensaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Mensaje.aspx.designer.cs">
+      <DependentUpon>Mensaje.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -201,6 +209,10 @@
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{70b4c768-375f-4f12-b187-1a3439ceb837}</Project>
       <Name>Negocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{603FA8D9-0D18-438C-AF19-4F488087413A}</Project>
+      <Name>Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -24,7 +24,7 @@ namespace Carrito_de_Compras
             tbxId.Enabled = false;
 
             // cambio ->
-            if(PageUtils.IsUserAdmin(Page))
+            if(PageUtils.IsUserAdmin(Page, "El usuario no posee credenciales para acceder a esta pagina."))
             {
                 if (!IsPostBack)
                 {

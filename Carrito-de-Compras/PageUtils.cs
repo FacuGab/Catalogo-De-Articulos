@@ -16,16 +16,16 @@ namespace Carrito_de_Compras
                 ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "alertMessage", $"alert('{mensaje}')", true);
         }
 
-        public static bool IsUserAdmin(Page page)
+        public static bool IsUserAdmin(Page page, string msjError = "Error Inesperado")
         {
             if(page.Session["usuario"] == null)
             {
-                page.Session.Add("error", "No Ingresaste usuario");
+                page.Session.Add("error", msjError);
                 return false;
             }
             else if (((Usuario)page.Session["usuario"]).Tipo == TipoUsuario.NORMAL)
             {
-                page.Session.Add("error", "Permiso de acceso denegado");
+                page.Session.Add("error", msjError);
                 return false;
             }
             else

@@ -49,6 +49,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="Login.aspx">Login</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Mensaje.aspx">Enviar Mensaje</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

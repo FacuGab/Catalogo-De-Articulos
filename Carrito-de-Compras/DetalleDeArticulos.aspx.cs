@@ -26,7 +26,7 @@ namespace Carrito_de_Compras
             chekedFiltro = chxFiltroAvanzado.Checked;
 
             // cambio ->
-            if(PageUtils.IsUserAdmin(Page))
+            if(PageUtils.IsUserAdmin(Page, "El usuario no posee credenciales para acceder a esta pagina."))
             {
                 if (!IsPostBack)
                 {
