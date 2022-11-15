@@ -23,57 +23,45 @@ namespace Carrito_de_Compras
             EventoBotonClick = false;
             tbxId.Enabled = false;
 
-            // cambio ->
-            if(PageUtils.IsUserAdmin(Page, "El usuario no posee credenciales para acceder a esta pagina."))
+            try
             {
-                if (!IsPostBack)
+                NegocioDetalle detalle = new NegocioDetalle();
+                detalle.listarDosCategorias();
+                ddlCategoria.DataSource = detalle.listaCategorias;
+                ddlCategoria.DataValueField = "_Id";
+                ddlCategoria.DataTextField = "_Descripcion";
+                ddlCategoria.DataBind();
+
+                ddlMarca.DataSource = detalle.listaMarcas;
+                ddlMarca.DataValueField = "_Id";
+                ddlMarca.DataTextField = "_Descripcion";
+                ddlMarca.DataBind();
+
+                if (Request.QueryString["id"] != null)
                 {
-                    try
-                    {
-                        NegocioDetalle detalle = new NegocioDetalle();
-                        detalle.listarDosCategorias();
-                        ddlCategoria.DataSource = detalle.listaCategorias;
-                        ddlCategoria.DataValueField = "_Id";
-                        ddlCategoria.DataTextField = "_Descripcion";
-                        ddlCategoria.DataBind();
+                    btnAgregar.Text = "Modificar";
+                    string id = Request.QueryString["id"].ToString();
+                    NegocioArticulo negocio = new NegocioArticulo();
+                    Articulo art = negocio.listarArticulos(0, id)[0];
 
-                        ddlMarca.DataSource = detalle.listaMarcas;
-                        ddlMarca.DataValueField = "_Id";
-                        ddlMarca.DataTextField = "_Descripcion";
-                        ddlMarca.DataBind();
+                    tbxId.Text = id;
+                    tbxId.Enabled = false;
 
-                        if (Request.QueryString["id"] != null)
-                        {
-                            btnAgregar.Text = "Modificar";
-                            string id = Request.QueryString["id"].ToString();
-                            NegocioArticulo negocio = new NegocioArticulo();
-                            Articulo art = negocio.listarArticulos(0, id)[0];
-
-                            tbxId.Text = id;
-                            tbxId.Enabled = false;
-
-                            tbxCodigo.Text = art._codArticulo;
-                            tbxNombre.Text = art._nombre;
-                            txaDescripcion.Text = art._descripcion;
-                            ddlCategoria.SelectedValue = art._categoria._Id.ToString();
-                            ddlMarca.SelectedValue = art._marca._Id.ToString();
-                            tbxPrecio.Text = art._precio.ToString();
-                            txbUrlImg.Text = art._urlImagen;
-                            imgFormulario.ImageUrl = txbUrlImg.Text;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Session.Add("error", ex);
-                        throw;
-                    }
+                    tbxCodigo.Text = art._codArticulo;
+                    tbxNombre.Text = art._nombre;
+                    txaDescripcion.Text = art._descripcion;
+                    ddlCategoria.SelectedValue = art._categoria._Id.ToString();
+                    ddlMarca.SelectedValue = art._marca._Id.ToString();
+                    tbxPrecio.Text = art._precio.ToString();
+                    txbUrlImg.Text = art._urlImagen;
+                    imgFormulario.ImageUrl = txbUrlImg.Text;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Error.aspx");
+                Session.Add("error", ex);
+                throw;
             }
-            // <- cambio
         }
 
         // METODOS:
@@ -100,7 +88,7 @@ namespace Carrito_de_Compras
                 {
                     negocio.agregarArticuloSP(artNuevo);
                     PageUtils.Mensaje(this, "Articulo Agregado");
-                } 
+                }
                 else
                 {
                     artNuevo._Id = int.Parse(tbxId.Text);
@@ -127,7 +115,7 @@ namespace Carrito_de_Compras
         {
             try
             {
-                if(chkConfirmarEliminar.Checked)
+                if (chkConfirmarEliminar.Checked)
                 {
                     NegocioArticulo negocio = new NegocioArticulo();
                     negocio.eliminarArticulo(int.Parse(tbxId.Text));

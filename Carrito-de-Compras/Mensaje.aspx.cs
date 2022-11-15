@@ -1,6 +1,7 @@
 ﻿using Service;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
@@ -13,11 +14,7 @@ namespace Carrito_de_Compras
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!PageUtils.IsUserAdmin(Page, "El usuario no posee credenciales para acceder a esta pagina."))
-            {
-                Response.Redirect("Error.aspx", false);
-            }
-
+            
         }
 
         protected void btnEnviar_Click(object sender, EventArgs e)
@@ -25,7 +22,9 @@ namespace Carrito_de_Compras
             string remitente = txtMail.Text;
             string cuerpo = txtCuerpo.Text;
             string asunto = txtAsunto.Text;
-            EmailService email = new EmailService("catalogoscuentagenerica@gmail.com", "Admin_123456789");
+            string defUser = ConfigurationManager.AppSettings.Get("defaultMailUser");
+            string defPass = ConfigurationManager.AppSettings.Get("defaultMailPass");
+            EmailService email = new EmailService();
             email.constructMail(remitente, asunto, cuerpo);
             try
             {
@@ -40,3 +39,4 @@ namespace Carrito_de_Compras
         }
     }
 }
+

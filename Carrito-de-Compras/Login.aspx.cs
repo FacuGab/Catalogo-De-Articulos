@@ -11,18 +11,21 @@ namespace Carrito_de_Compras
 {
     public partial class Login : System.Web.UI.Page
     {
+        //LOAD
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
+        //METODOS
+        //Boton Ingresar:
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
             Usuario usuario;
             NegocioUsuario negocio = new NegocioUsuario();
             try
             {
-                usuario = new Usuario(txtUsuario.Text, txtPass.Text, false);
+                usuario = new Usuario(txtUsuario.Text, txtPass.Text, txtMail.Text);
                 if(negocio.Login(usuario))
                 {
                     Session.Add("usuario", usuario);
@@ -30,10 +33,9 @@ namespace Carrito_de_Compras
                 }
                 else
                 {
-                    Session.Add("error", "Error al logear");
+                    Session.Add("error", "Usuario No registrado");
                     Response.Redirect("Error.aspx", false);
                 }
-
             }
             catch (Exception ex)
             {
@@ -41,7 +43,7 @@ namespace Carrito_de_Compras
                 Response.Redirect("Error.aspx");
             }
         }
-
+        //Boton Cerrar Sesion:
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             if (Session["usuario"] != null)
@@ -49,6 +51,11 @@ namespace Carrito_de_Compras
                 Session.Remove("usuario");
                 Response.Redirect("Login.aspx");
             }
+        }
+        //Boton ir a Registrar:
+        protected void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Registro.aspx", false);
         }
     }
 }

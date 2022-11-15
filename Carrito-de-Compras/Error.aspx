@@ -10,7 +10,7 @@
         </div>
         <div>
             <a href="Default.aspx">Ir a Catalogo</a>
-            <a href="Login.aspx">Volver</a>
+            <a href="Login.aspx">Ir a Login</a>
         </div>
     </div>
 </asp:Content>

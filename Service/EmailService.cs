@@ -16,13 +16,14 @@ namespace Service
         private SmtpClient server; // servidor por el cual mandamos el mail, depende del tipo (investigar)
 
         //Constructor:
-        public EmailService(string negocioMail, string pass)
+        public EmailService()
         {
+            //Funcionando con sandbox de MailTrap
             this.server = new SmtpClient();
-            this.server.Credentials = new NetworkCredential(negocioMail, pass);
+            this.server.Credentials = new NetworkCredential("4616c3dc994360", "dfb982da4cd841");
             this.server.EnableSsl = true;
-            this.server.Port = 587;
-            this.server.Host = "smpt.gmail.com";
+            this.server.Port = 2525;
+            this.server.Host = "smtp.mailtrap.io";
         }
 
         //Metodos

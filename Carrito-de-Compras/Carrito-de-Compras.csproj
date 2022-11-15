@@ -67,6 +67,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Auxiliar.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleDeArticulos.aspx" />
     <Content Include="Error.aspx" />
@@ -94,6 +95,7 @@
     <Content Include="Models\css\bootstrap.rtl.css" />
     <Content Include="Models\css\bootstrap.rtl.min.css" />
     <Content Include="notas.txt" />
+    <Content Include="Registro.aspx" />
     <Content Include="Scripts\js\bootstrap.bundle.js" />
     <Content Include="Scripts\js\bootstrap.bundle.min.js" />
     <Content Include="Scripts\js\bootstrap.esm.js" />
@@ -104,6 +106,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auxiliar.aspx.cs">
+      <DependentUpon>Auxiliar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auxiliar.aspx.designer.cs">
+      <DependentUpon>Auxiliar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -158,6 +167,13 @@
     </Compile>
     <Compile Include="PageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

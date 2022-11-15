@@ -18,12 +18,12 @@ namespace Carrito_de_Compras
 
         public static bool IsUserAdmin(Page page, string msjError = "Error Inesperado")
         {
-            if(page.Session["usuario"] == null)
+            if (!IsSessionActive(page.Session["usuario"]))
             {
-                page.Session.Add("error", msjError);
+                page.Session.Add("Error", "No hay una sesion activa de usuario");
                 return false;
             }
-            else if (((Usuario)page.Session["usuario"]).Tipo == TipoUsuario.NORMAL)
+            if ( ((Usuario)page.Session["usuario"]).Tipo == TipoUsuario.NORMAL )
             {
                 page.Session.Add("error", msjError);
                 return false;
@@ -31,6 +31,18 @@ namespace Carrito_de_Compras
             else
             {
                 return true;
+            }
+        }
+
+        public static bool IsSessionActive(object session)
+        {
+            if(session != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

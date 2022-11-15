@@ -16,7 +16,7 @@ namespace Carrito_de_Compras
         Dictionary<string, int> keyValues;
         private int cantidad = 0;
         private int index;
-        public int count { get; set; }
+        public int Count { get; set; }
         public bool flagFiltro { get; set; }
 
         //Load:
@@ -61,12 +61,12 @@ namespace Carrito_de_Compras
                         Session.Add("uniXcodigo", new Dictionary<string, int>());
                         Session.Add("montoTotal", 0.00M);
                         Session.Add("montoParcial", 0.00M);
-                        count = negocio.CantArt;
+                        Count = negocio.CantArt;
                     }
                     else
                     {
                         Session.Add("cantidadFiltrados", negocio.CantArt);
-                        count = negocio.CantArt;
+                        Count = negocio.CantArt;
                     }
                 }
             }
@@ -169,7 +169,7 @@ namespace Carrito_de_Compras
                     else
                         Session.Add("cantidadFiltrados", 0);
 
-                    count = (int)Session["cantidadFiltrados"];
+                    Count = (int)Session["cantidadFiltrados"];
                     rep_ListaDefautl.DataSource = listaFiltrada;
                     rep_ListaDefautl.DataBind();
                 }
@@ -183,7 +183,7 @@ namespace Carrito_de_Compras
         //Boton Resetear Filtro
         protected void btnResetFiltro_Click(object sender, EventArgs e)
         {
-            count = (int)Session["cantidadFiltrados"];
+            Count = (int)Session["cantidadFiltrados"];
             Response.Redirect("Default.aspx", false);
         }
     }//

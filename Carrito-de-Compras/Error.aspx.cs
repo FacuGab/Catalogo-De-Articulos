@@ -15,15 +15,21 @@ namespace Carrito_de_Compras
             {
                 try
                 {
-                    if (Session["error"] != null)
-                        txaError.Text = ((Exception)Session["error"]).Message;
+                    if (Session["error"] is Exception)
+                    {
+                        txaError.Text = ((Exception)Session["error"]).Message + "\n" + ((Exception)Session["error"]).InnerException.Message;
+                    }
+                    else
+                    {
+                        txaError.Text = Session["error"].ToString();
+                    }
                 }
                 catch
                 {
                     if (Session["usuario"] == null)
                         txaError.Text = "Usuario No ingresado";
                     else
-                        txaError.Text = Session["error"].ToString();
+                        txaError.Text = "Ocurrio un error inesperado";
                 }
             }
         }

@@ -98,6 +98,21 @@ namespace Negocio
             }
         }
 
+        // Ejecutar QueryScalar
+        public int ejecutarQueryScalar()
+        {
+            _command.Connection= _conexion;
+            try
+            {
+                _conexion.Open();
+                return Convert.ToInt32(_command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // Modificar parametros sql en comando:
         public void setearParametro(string str, object valor)
         {

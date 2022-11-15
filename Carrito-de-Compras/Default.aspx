@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Carrito_de_Compras.Default" %>
+﻿<%@ Page Title="Catalogo" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Carrito_de_Compras.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -10,7 +10,7 @@
         <div style="margin-bottom: 10px">
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
-                    <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%: (int)Session["cantidad"] %></span></h4>
+                    <h4>Cantidad de Articulos en Carrito: <span class="badge bg-secondary"><%: (Session["cantidad"] != null) ? (int)Session["cantidad"] : 0 %></span></h4>
                 </ContentTemplate>
             </asp:UpdatePanel>
             <div class="d-grid gap-2 col-6 mx-auto mb-5">
@@ -19,7 +19,7 @@
         </div>
         <!-- Filtros Busqueda -->
         <div class="p-5" style="background-color: #0b0034; border-radius: 2em;">
-
+            <h4 style="font-family:Arial;">Filtros:</h4>
             <div class="row">
                 <div class="col-1 ms-5">
                     <h4>Marca:</h4>
@@ -57,7 +57,7 @@
         <h2>ARTICULOS</h2>
         <%if (flagFiltro)
             {%>
-        <h5>Cantidad de articulos encontrados: <span class="badge bg-secondary"><%: count %></span></h5>
+        <h5>Cantidad de articulos encontrados: <span class="badge bg-secondary"><%: Count %></span></h5>
         <%} %>
         <asp:UpdatePanel runat="server">
             <ContentTemplate>

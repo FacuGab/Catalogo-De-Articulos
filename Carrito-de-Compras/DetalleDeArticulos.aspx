@@ -12,7 +12,7 @@
             <div class="col-6">
                 <div class="mb-3">
                     <label>Filtro por Nombre de Articulo: </label>
-                    <asp:TextBox ID="tbxFiltroRapido" CssClass="form-control" OnTextChanged="tbxFiltroRapido_TextChanged" runat="server" />
+                    <asp:TextBox ID="tbxFiltroRapido" CssClass="form-control" AutoPostback="true" OnTextChanged="tbxFiltroRapido_TextChanged" runat="server" />
                 </div>
                 <div class="mb-3">
                     <asp:CheckBox ID="chxFiltroAvanzado" CssClass="form-check" Text="Filtro Avanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chxFiltroAvanzado_CheckedChanged" />
@@ -66,8 +66,7 @@
                 <%} %>
             </ContentTemplate>
         </asp:UpdatePanel>
-
-        <!-- Filtro Avanzado -->
+        <!-- Fin Filtro Avanzado -->
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
                 <!-- Data Grid -->
@@ -97,14 +96,8 @@
 
         <!-- Botones -->
         <div class="row">
-            <div class="col-4">
+            <div class="col">
                 <a href="DetalleDeArticulos.aspx" class="btn btn-secondary">Borrar todos los Filtros</a>
-            </div>
-            <div class="col-4">
-                <asp:Button ID="btnMostrarLogicos" CssClass="btn btn-secondary" Text="Excluir Inactivos" OnClick="btnMostrarLogicos_Click" runat="server" />
-            </div>
-            <div class="col-4">
-                <asp:Button ID="btnMostrarSilogicos" CssClass="btn btn-secondary" Text="Incluir Inactivos" OnClick="btnMostrarSilogicos_Click" runat="server" />
             </div>
         </div>
         <hr />

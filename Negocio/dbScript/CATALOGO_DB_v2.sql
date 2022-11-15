@@ -96,6 +96,8 @@ insert into ARTICULOS values ('S01', 'Galaxy S10', 'Una canoa cara', 1, 1, 'http
 ('S56', 'Bravia 55', 'Alta tele', 3, 2, 'https://intercompras.com/product_thumb_keepratio_2.php?img=images/product/SONY_KDL-55W950A.jpg&w=650&h=450', 49500),
 ('A23', 'Apple TV', 'lindo loro', 2, 3, 'https://cnnespanol2.files.wordpress.com/2015/12/gadgets-mc3a1s-populares-apple-tv-2015-18.jpg?quality=100&strip=info&w=460&h=260&crop=1', 7850)
 
+-- ################################################################################
+
 -- Querys post creacion de BD:
 --ALTER TABLE ARTICULOS ADD [Activo] [bit] default 1 NOT NULL
 
@@ -127,12 +129,42 @@ DELETE FROM CATEGORIAS WHERE Id = 5
 CREATE PROCEDURE SP_Listar AS
 	 SELECT a.Id, a.Codigo, a.IdCategoria, c.Descripcion as Categoria, a.IdMarca, m.Descripcion as Marca, a.Descripcion, a.Nombre, a.Precio, a.ImagenUrl 
 	 FROM ARTICULOS a LEFT JOIN MARCAS m ON a.IdMarca = m.Id LEFT JOIN CATEGORIAS c ON a.IdCategoria = c.Id
-EXEC SP_Listar
 
+-- Sp Agregar nuevo usuario
+CREATE PROCEDURE SP_AgregarUsuario(
+	@pUsuario VARCHAR(50),
+	@pPass VARCHAR(50),
+	@pTipoUsuario TINYINT,
+	@pMail VARCHAR(100)
+	)
+	AS BEGIN
+	INSERT 
+		INTO USUARIOS (Usuario, Pass, TipoUsuario, Mail) 
+		VALUES (@pUsuario, @pPass, @pTipoUsuario, @pMail)
+	END
+-- Sp Agregar nuevo usuario con scalar
+CREATE PROCEDURE SP_AgregarUsuarioScalar(
+	@pUsuario VARCHAR(50),
+	@pPass VARCHAR(50),
+	@pTipoUsuario TINYINT,
+	@pMail VARCHAR(100)
+	)
+	AS BEGIN
+	INSERT 
+		INTO USUARIOS (Usuario, Pass, TipoUsuario, Mail)
+		OUTPUT inserted.Id
+		VALUES (@pUsuario, @pPass, @pTipoUsuario, @pMail)
+	END
+
+-- Ejecutar SP
+EXEC SP_Listar
+EXEC SP_AgregarUsuario 'Invitado', '1234', 1, 'mailFalso@mail.com'
+
+-- OTROS:
 SELECT * FROM USUARIOS
 SELECT Id, Usuario, Pass, TipoUsuario FROM dbo.USUARIOS WHERE Usuario = 'test' AND Pass = 'test'
 SELECT Id, TipoUsuario FROM dbo.USUARIOS WHERE Usuario = 'test' AND Pass = 'test'
-
+SELECT IDHorario, FechaInicio as 'Dia', HoraInicio, HoraFin, DiaDeLaSemana, Intervalo FROM Horarios
 	--Tabla ARTICULOS:
 	--[Id] [int] IDENTITY(1,1) NOT NULL,
 	--[Codigo] [varchar](50) NULL,
